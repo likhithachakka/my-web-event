@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Web Experience</title>
+    <style>
+        /* 1. UNIVERSAL STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: #0f0c29; /* Fallback color */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 2. ANIMATED BACKGROUND (Moving Gradients) */
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 3. TRANSITION SYSTEM */
+        .page {
+            position: absolute;
+            text-align: center;
+            transition: all 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+            padding: 20px;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            pointer-events: none;
+        }
+
+        /* 4. ATTRACTIVE ELEMENTS */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.6s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        h1:hover { transform: rotate(360deg) scaleX(-1); color: #ffcc00; }
+
+        button {
+            background: white;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate"></div>
+
+    <div id="page1" class="page">
+        <div class="glass-card">
+            <h1>Welcome</h1>
+            <p style="margin-bottom: 25px;">Everything you need is just a click away.</p>
+            <button onclick="showPage('page2')">Click Here</button>
+        </div>
+    </div>
+
+    <div id="page2" class="page hidden">
+        <div class="glass-card">
+            <h2 style="font-size: 2.5rem;">The Main Stage</h2>
+            <p style="margin: 20px 0;">This is your original page with the animated background.</p>
+            <button onclick="showPage('page1')" style="background: transparent; color: white; border: 1px solid white;">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
